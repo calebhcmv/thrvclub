@@ -48,3 +48,4 @@ Pipeline configurada em `.github/workflows/ci.yml` para:
 - Erros globais: `app/error.tsx`
 - Security headers: `next.config.ts`
 - ✅ Fase 7 (governança e rastreabilidade: trilha de auditoria das ações críticas)
+- ✅ Fase 8 (release readiness: seed inicial, smoke check e runbook de release)
