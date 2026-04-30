@@ -1,6 +1,7 @@
 import { requireAdminRole } from '@/lib/access/roles';
 import { requireSession } from '@/lib/auth/session';
 import { listUsers } from '@/lib/admin/queries';
+import { EmptyState } from '@/components/ui/empty-state';
 
 export default async function AdminUsersPage() {
   const session = await requireSession();
@@ -23,6 +24,9 @@ export default async function AdminUsersPage() {
             </tr>
           </thead>
           <tbody>
+            {users.length === 0 ? (
+              <tr><td className="p-4" colSpan={4}><EmptyState title="Sem usuários" description="Nenhum usuário cadastrado até o momento." /></td></tr>
+            ) : null}
             {users.map((user) => (
               <tr key={user.id} className="border-t border-[var(--color-border)]">
                 <td className="p-3">{user.name ?? '-'}</td>

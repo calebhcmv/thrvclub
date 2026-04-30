@@ -54,3 +54,9 @@ Uso local é apenas para desenvolvimento.
 3. Preencha variáveis do Neon Auth e Neon DB.
 4. Rode localmente:
    - `pnpm dev` **ou** `npm run dev` **ou** `yarn dev`
+
+## Status do roadmap
+
+- ✅ Fase 1: base da stack e limpeza do legado
+- ✅ Fase 2: auth, proteção de rotas, CRUD admin de cursos/módulos/aulas e fluxo members inicial
+- ✅ Fase 3: consolidação de UX base (layouts dedicados de admin/members, estado vazio reutilizável, página 404)
