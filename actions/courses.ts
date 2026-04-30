@@ -86,3 +86,18 @@ export async function updateCourse(formData: FormData): Promise<ActionResult> {
   revalidatePath(`/admin/courses/${parsed.data.courseId}/edit`);
   return { ok: true, message: 'Curso atualizado com sucesso.' };
 }
+
+
+export async function deleteCourse(formData: FormData): Promise<ActionResult> {
+  const session = await requireSession();
+  const courseId = String(formData.get('courseId') ?? '');
+
+  if (!courseId) {
+    return { ok: false, message: 'Curso inválido.' };
+  }
+
+  await db.delete(courses).where(and(eq(courses.id, courseId), eq(courses.userId, session.user.id)));
+  await logAudit({ userId: session.user.id, action: 'delete', entity: 'course', entityId: courseId });
+  revalidatePath('/admin/courses');
+  return { ok: true, message: 'Curso removido com sucesso.' };
+}

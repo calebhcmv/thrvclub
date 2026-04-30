@@ -41,3 +41,33 @@ export async function createModule(formData: FormData) {
   revalidatePath(`/admin/courses/${parsed.data.courseId}/edit`);
   return { ok: true };
 }
+
+
+export async function updateModule(formData: FormData) {
+  const session = await requireSession();
+  await requireAdminRole(session.user.id);
+
+  const moduleId = String(formData.get('moduleId') ?? '');
+  const title = String(formData.get('title') ?? '');
+  const position = Number(formData.get('position') ?? 0);
+
+  if (!moduleId || !title || position < 1) return { ok: false, message: 'Dados inválidos.' };
+
+  await db.update(modules).set({ title, position, updatedAt: new Date() }).where(eq(modules.id, moduleId));
+  await logAudit({ userId: session.user.id, action: 'update', entity: 'module', entityId: moduleId });
+  revalidatePath('/admin/courses');
+  return { ok: true };
+}
+
+export async function deleteModule(formData: FormData) {
+  const session = await requireSession();
+  await requireAdminRole(session.user.id);
+
+  const moduleId = String(formData.get('moduleId') ?? '');
+  if (!moduleId) return { ok: false, message: 'Módulo inválido.' };
+
+  await db.delete(modules).where(eq(modules.id, moduleId));
+  await logAudit({ userId: session.user.id, action: 'delete', entity: 'module', entityId: moduleId });
+  revalidatePath('/admin/courses');
+  return { ok: true };
+}

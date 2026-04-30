@@ -57,3 +57,12 @@ export async function requireSession(): Promise<AppSession> {
 
   return session;
 }
+
+
+import { requireAdminRole } from '@/lib/access/roles';
+
+export async function requireAdmin(): Promise<AppSession> {
+  const session = await requireSession();
+  await requireAdminRole(session.user.id);
+  return session;
+}
