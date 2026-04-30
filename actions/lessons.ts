@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { requireAdminRole } from '@/lib/access/roles';
 import { requireSession } from '@/lib/auth/session';
 import { db } from '@/lib/db';
+import { logAudit } from '@/lib/audit';
 import { courses, lessons, modules } from '@/lib/db/schema';
 import { createLessonSchema, updateLessonSchema } from '@/schemas/lessons';
 
@@ -46,6 +47,10 @@ export async function createLesson(formData: FormData) {
     embedUrl: parsed.data.embedUrl,
     position: parsed.data.position,
   });
+
+  await logAudit({ userId: session.user.id, action: 'create', entity: 'lesson', metadata: { moduleId: parsed.data.moduleId, title: parsed.data.title } });
+
+  await logAudit({ userId: session.user.id, action: 'update', entity: 'lesson', entityId: parsed.data.lessonId });
 
   revalidatePath(`/admin/courses/${owned.courseId}/edit`);
   return { ok: true };
@@ -97,6 +102,7 @@ export async function deleteLesson(formData: FormData) {
   if (!owned) return { ok: false, message: 'Módulo não autorizado.' };
 
   await db.delete(lessons).where(and(eq(lessons.id, lessonId), eq(lessons.moduleId, moduleId)));
+  await logAudit({ userId: session.user.id, action: 'delete', entity: 'lesson', entityId: lessonId });
   revalidatePath(`/admin/courses/${owned.courseId}/edit`);
   return { ok: true };
 }

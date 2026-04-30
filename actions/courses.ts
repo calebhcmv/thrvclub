@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { and, eq } from 'drizzle-orm';
 
 import { db } from '@/lib/db';
+import { logAudit } from '@/lib/audit';
 import { courses } from '@/lib/db/schema';
 import { requireSession } from '@/lib/auth/session';
 import { createCourseSchema, updateCourseSchema } from '@/schemas/courses';
@@ -46,6 +47,8 @@ export async function createCourse(formData: FormData): Promise<ActionResult> {
     status: parsed.data.status,
   });
 
+  await logAudit({ userId: session.user.id, action: 'create', entity: 'course', metadata: { title: parsed.data.title } });
+
   revalidatePath('/admin/courses');
   return { ok: true, message: 'Curso criado com sucesso.' };
 }
@@ -76,6 +79,8 @@ export async function updateCourse(formData: FormData): Promise<ActionResult> {
       updatedAt: new Date(),
     })
     .where(and(eq(courses.id, parsed.data.courseId), eq(courses.userId, session.user.id)));
+
+  await logAudit({ userId: session.user.id, action: 'update', entity: 'course', entityId: parsed.data.courseId });
 
   revalidatePath('/admin/courses');
   revalidatePath(`/admin/courses/${parsed.data.courseId}/edit`);

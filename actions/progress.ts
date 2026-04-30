@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 import { requireSession } from '@/lib/auth/session';
 import { db } from '@/lib/db';
+import { logAudit } from '@/lib/audit';
 import { lessons, modules, userProgress } from '@/lib/db/schema';
 import { lessonProgressSchema } from '@/schemas/progress';
 
@@ -29,6 +30,8 @@ export async function markLessonComplete(formData: FormData) {
       set: { completed: true, completedAt: new Date(), updatedAt: new Date() },
     });
 
+  await logAudit({ userId: session.user.id, action: 'complete', entity: 'lesson_progress', entityId: parsed.data.lessonId });
+  await logAudit({ userId: session.user.id, action: 'incomplete', entity: 'lesson_progress', entityId: parsed.data.lessonId });
   revalidatePath('/members');
   return { ok: true };
 }

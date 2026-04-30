@@ -72,3 +72,14 @@ export const userProgress = pgTable('user_progress', {
   index('user_progress_lesson_id_idx').on(table.lessonId),
   uniqueIndex('user_progress_user_lesson_unique').on(table.userId, table.lessonId),
 ]);
+
+
+export const auditLogs = pgTable('audit_logs', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: text('user_id').notNull(),
+  action: text('action').notNull(),
+  entity: text('entity').notNull(),
+  entityId: text('entity_id'),
+  metadata: text('metadata'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});

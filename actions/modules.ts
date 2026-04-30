@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { requireAdminRole } from '@/lib/access/roles';
 import { requireSession } from '@/lib/auth/session';
 import { db } from '@/lib/db';
+import { logAudit } from '@/lib/audit';
 import { courses, modules } from '@/lib/db/schema';
 import { createModuleSchema } from '@/schemas/modules';
 
@@ -34,6 +35,8 @@ export async function createModule(formData: FormData) {
     title: parsed.data.title,
     position: parsed.data.position,
   });
+
+  await logAudit({ userId: session.user.id, action: 'create', entity: 'module', metadata: { courseId: parsed.data.courseId, title: parsed.data.title } });
 
   revalidatePath(`/admin/courses/${parsed.data.courseId}/edit`);
   return { ok: true };

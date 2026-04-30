@@ -47,3 +47,4 @@ Pipeline configurada em `.github/workflows/ci.yml` para:
 - Healthcheck: `GET /api/health`
 - Erros globais: `app/error.tsx`
 - Security headers: `next.config.ts`
+- ✅ Fase 7 (governança e rastreabilidade: trilha de auditoria das ações críticas)
