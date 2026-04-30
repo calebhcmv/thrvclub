@@ -26,3 +26,13 @@ Projeto alinhado ao plano oficial (`STACK.md`, `INITIAL.md`, `RULES.md`, `PLAN.m
 - `npm run db:generate`
 - `npm run db:push`
 - `npm run seed:admin`
+
+## Pré-deploy (antes da Vercel)
+```bash
+npm run predeploy
+npm run lint
+npm run typecheck
+npm run build
+```
+
+Checklist completo: `VERCEL_PREP.md`.
