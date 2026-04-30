@@ -1,6 +1,6 @@
 # THRVCLUB
 
-Estrutura reescrita com stack oficial (`STACK.md` + `RULES.md` + `INITIAL.md`).
+Projeto alinhado ao plano oficial (`STACK.md`, `INITIAL.md`, `RULES.md`, `PLAN.md`).
 
 ## Stack
 - Next.js App Router
@@ -12,41 +12,17 @@ Estrutura reescrita com stack oficial (`STACK.md` + `RULES.md` + `INITIAL.md`).
 - Zod
 
 ## Variáveis obrigatórias
+- `DATABASE_URL`
 - `NEON_AUTH_URL`
 - `NEON_AUTH_JWKS_URL`
 - `NEON_AUTH_COOKIE_SECRET`
 - `NEXT_PUBLIC_NEON_AUTH_URL`
-- `DATABASE_URL`
 
-## Scripts
+## Scripts principais
 - `npm run dev`
-- `npm run typecheck`
 - `npm run lint`
+- `npm run typecheck`
 - `npm run build`
-- `npm run check`
 - `npm run db:generate`
 - `npm run db:push`
-
-## CI/CD
-Pipeline configurada em `.github/workflows/ci.yml` para:
-1. instalar dependências
-2. rodar typecheck
-3. rodar lint
-4. validar build
-
-## Status do roadmap
-- ✅ Fase 1
-- ✅ Fase 2
-- ✅ Fase 3
-- ✅ Fase 4
-- ✅ Fase 5 (go-live readiness: CI + scripts de validação + configuração Drizzle)
-
-- ✅ Fase 6 (produção/observabilidade base: healthcheck, boundary global de erro e security headers)
-
-## Operação
-- Healthcheck: `GET /api/health`
-- Erros globais: `app/error.tsx`
-- Security headers: `next.config.ts`
-- ✅ Fase 7 (governança e rastreabilidade: trilha de auditoria das ações críticas)
-- ✅ Fase 8 (release readiness: seed inicial, smoke check e runbook de release)
-- ✅ Fase 8 (componentes base: shared/members/admin + VideoEmbed)
+- `npm run seed:admin`
