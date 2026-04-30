@@ -1,5 +1,13 @@
 import { boolean, index, integer, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
 
+
+export const userProfiles = pgTable('user_profiles', {
+  id: text('id').primaryKey(),
+  role: text('role', { enum: ['admin', 'member'] }).notNull().default('member'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
   authUserId: text('auth_user_id').notNull().unique(),

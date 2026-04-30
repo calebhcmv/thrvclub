@@ -1,10 +1,10 @@
 import { count, eq } from 'drizzle-orm';
 
 import { db } from '@/lib/db';
-import { courses, lessons, users } from '@/lib/db/schema';
+import { courses, lessons, userProfiles } from '@/lib/db/schema';
 
 export async function getAdminOverview() {
-  const [usersTotal] = await db.select({ value: count() }).from(users);
+  const [usersTotal] = await db.select({ value: count() }).from(userProfiles);
   const [coursesTotal] = await db.select({ value: count() }).from(courses);
   const [lessonsTotal] = await db.select({ value: count() }).from(lessons);
 
@@ -18,14 +18,12 @@ export async function getAdminOverview() {
 export async function listUsers() {
   return db
     .select({
-      id: users.id,
-      email: users.email,
-      name: users.name,
-      role: users.role,
-      createdAt: users.createdAt,
+      id: userProfiles.id,
+      role: userProfiles.role,
+      createdAt: userProfiles.createdAt,
     })
-    .from(users)
-    .orderBy(users.createdAt);
+    .from(userProfiles)
+    .orderBy(userProfiles.createdAt);
 }
 
 export async function listPublishedCoursesCountByUser(authUserId: string) {

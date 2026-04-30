@@ -17,20 +17,18 @@ export default async function AdminUsersPage() {
         <table className="w-full min-w-[720px] text-sm">
           <thead className="bg-[var(--color-surface-2)] text-left">
             <tr>
-              <th className="p-3">Nome</th>
-              <th className="p-3">Email</th>
+              <th className="p-3">User ID</th>
               <th className="p-3">Role</th>
               <th className="p-3">Criado em</th>
             </tr>
           </thead>
           <tbody>
             {users.length === 0 ? (
-              <tr><td className="p-4" colSpan={4}><EmptyState title="Sem usuários" description="Nenhum usuário cadastrado até o momento." /></td></tr>
+              <tr><td className="p-4" colSpan={3}><EmptyState title="Sem usuários" description="Nenhum usuário cadastrado até o momento." /></td></tr>
             ) : null}
             {users.map((user) => (
               <tr key={user.id} className="border-t border-[var(--color-border)]">
-                <td className="p-3">{user.name ?? '-'}</td>
-                <td className="p-3">{user.email}</td>
+                <td className="p-3">{user.id}</td>
                 <td className="p-3">{user.role}</td>
                 <td className="p-3">{new Date(user.createdAt).toLocaleDateString('pt-BR')}</td>
               </tr>

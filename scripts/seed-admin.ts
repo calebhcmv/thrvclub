@@ -1,5 +1,5 @@
 import { db } from '@/lib/db';
-import { users } from '@/lib/db/schema';
+import { userProfiles } from '@/lib/db/schema';
 
 async function main() {
   const userId = process.env.SEED_ADMIN_USER_ID;
@@ -9,10 +9,10 @@ async function main() {
   }
 
   await db
-    .insert(users)
-    .values({ authUserId: userId, email: `${userId}@placeholder.local`, role: 'admin' })
+    .insert(userProfiles)
+    .values({ id: userId, role: 'admin' })
     .onConflictDoUpdate({
-      target: users.authUserId,
+      target: userProfiles.id,
       set: { role: 'admin', updatedAt: new Date() },
     });
 
