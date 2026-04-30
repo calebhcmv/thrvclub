@@ -40,3 +40,10 @@ Pipeline configurada em `.github/workflows/ci.yml` para:
 - ✅ Fase 3
 - ✅ Fase 4
 - ✅ Fase 5 (go-live readiness: CI + scripts de validação + configuração Drizzle)
+
+- ✅ Fase 6 (produção/observabilidade base: healthcheck, boundary global de erro e security headers)
+
+## Operação
+- Healthcheck: `GET /api/health`
+- Erros globais: `app/error.tsx`
+- Security headers: `next.config.ts`
