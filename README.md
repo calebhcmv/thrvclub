@@ -1,20 +1,33 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# THRVCLUB
 
-# Run and deploy your AI Studio app
+Base inicial da reestruturação do THRVCLUB com stack oficial:
 
-This contains everything you need to run your app locally.
+- Next.js App Router
+- TypeScript strict
+- Neon Auth
+- Neon PostgreSQL
+- Drizzle ORM
+- Tailwind CSS
 
-View your app in AI Studio: https://ai.studio/apps/faed0da3-8845-417f-932c-a178491e4b39
+## Como rodar localmente
 
-## Run Locally
+1. Instale dependências:
+   ```bash
+   npm install
+   ```
+2. Copie o ambiente:
+   ```bash
+   cp .env.example .env.local
+   ```
+3. Preencha as variáveis do Neon Auth e Neon DB.
+4. Rode o app:
+   ```bash
+   npm run dev
+   ```
 
-**Prerequisites:**  Node.js
+## Estrutura base criada
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- `lib/auth/server.ts`: instância oficial do Neon Auth server-side
+- `app/api/auth/[...path]/route.ts`: handlers de auth
+- `lib/db/schema.ts`: schema inicial do MVP em Drizzle
+- `lib/db/index.ts`: conexão com banco
