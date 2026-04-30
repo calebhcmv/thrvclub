@@ -1,32 +1,42 @@
 # THRVCLUB
 
-Estrutura base da reescrita com stack oficial definida em `STACK.md` e regras de `RULES.md`.
+Estrutura reescrita com stack oficial (`STACK.md` + `RULES.md` + `INITIAL.md`).
 
-## Stack aplicada
-
-- Next.js (App Router)
+## Stack
+- Next.js App Router
 - TypeScript strict
 - Tailwind CSS
-- Neon Auth (`@neondatabase/auth`)
+- Neon Auth
 - Neon PostgreSQL
 - Drizzle ORM
 - Zod
 
-## Vercel (produção)
-
-Você não precisa rodar `npm` manualmente na Vercel. A plataforma instala dependências e builda automaticamente via lockfile.
-
-### Variáveis obrigatórias
-
+## Variáveis obrigatórias
 - `NEON_AUTH_URL`
 - `NEON_AUTH_JWKS_URL`
 - `NEON_AUTH_COOKIE_SECRET`
 - `NEXT_PUBLIC_NEON_AUTH_URL`
 - `DATABASE_URL`
 
-## Status do roadmap
+## Scripts
+- `npm run dev`
+- `npm run typecheck`
+- `npm run lint`
+- `npm run build`
+- `npm run check`
+- `npm run db:generate`
+- `npm run db:push`
 
-- ✅ Fase 1: base da stack e limpeza do legado
-- ✅ Fase 2: auth, proteção de rotas, CRUD admin de cursos/módulos/aulas e fluxo members inicial
-- ✅ Fase 3: consolidação de UX base (layouts dedicados, empty state, not-found)
-- ✅ Fase 4: hardening final (validação central de env, login/logout Neon Auth explícito e revisão final de estrutura)
+## CI/CD
+Pipeline configurada em `.github/workflows/ci.yml` para:
+1. instalar dependências
+2. rodar typecheck
+3. rodar lint
+4. validar build
+
+## Status do roadmap
+- ✅ Fase 1
+- ✅ Fase 2
+- ✅ Fase 3
+- ✅ Fase 4
+- ✅ Fase 5 (go-live readiness: CI + scripts de validação + configuração Drizzle)
