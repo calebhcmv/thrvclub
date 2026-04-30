@@ -49,3 +49,4 @@ Pipeline configurada em `.github/workflows/ci.yml` para:
 - Security headers: `next.config.ts`
 - ✅ Fase 7 (governança e rastreabilidade: trilha de auditoria das ações críticas)
 - ✅ Fase 8 (release readiness: seed inicial, smoke check e runbook de release)
+- ✅ Fase 8 (componentes base: shared/members/admin + VideoEmbed)
